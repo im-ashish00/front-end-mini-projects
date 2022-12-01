@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.image {
+  background: url(./assets/coffee.webp) center no-repeat;
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* Common centering */
+.image::before,
+.image::after {
+  --scale: 0;
+  --tooltip-color: #fff;
+  --arrow-width: 10px;
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0))
+    scale(var(--scale));
+  transition: 150ms transform;
+}
+.image::before {
+  /* Adding in arrow's size  */
+  --translate-y: calc(-100% - var(--arrow-width));
+  content: attr(data-tooltip);
+  border-radius: 10px;
+  background-color: var(--tooltip-color);
+  text-align: center;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.5em;
+  transform-origin: bottom center;
+}
+
+.image::after {
+  --translate-y: calc(-1 * var(--arrow-width));
+  content: "";
+  border: var(--arrow-width) solid transparent;
+  transform-origin: top center;
+  border-top-color: var(--tooltip-color);
+}
+
+.image:hover::before,
+.image:hover::after {
+  --scale: 1;
+}
